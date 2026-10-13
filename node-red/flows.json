@@ -1,0 +1,548 @@
+[
+    {
+        "id": "01e644ce72ab7de7",
+        "type": "tab",
+        "label": "Flux 1",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "mqtt_contaminee",
+        "type": "mqtt in",
+        "z": "01e644ce72ab7de7",
+        "name": "porte/contaminee",
+        "topic": "porte/contaminee",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "mqtt_broker",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 200,
+        "y": 120,
+        "wires": [
+            [
+                "ui_led_contaminee",
+                "fn_csv",
+                "fn_table"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_sterile",
+        "type": "mqtt in",
+        "z": "01e644ce72ab7de7",
+        "name": "porte/sterile",
+        "topic": "porte/sterile",
+        "qos": "0",
+        "broker": "mqtt_broker",
+        "inputs": 0,
+        "x": 200,
+        "y": 180,
+        "wires": [
+            [
+                "ui_led_sterile",
+                "fn_csv",
+                "fn_table"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_cycle",
+        "type": "mqtt in",
+        "z": "01e644ce72ab7de7",
+        "name": "cycle/depart",
+        "topic": "cycle/depart",
+        "qos": "0",
+        "broker": "mqtt_broker",
+        "inputs": 0,
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "ui_led_cycle",
+                "fn_csv",
+                "fn_table",
+                "detect_cycle_end"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_cycle_etape",
+        "type": "mqtt in",
+        "z": "01e644ce72ab7de7",
+        "name": "cycle/etape",
+        "topic": "cycle/etape",
+        "qos": "0",
+        "broker": "mqtt_broker",
+        "inputs": 0,
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "ui_text_etape",
+                "fn_csv",
+                "fn_table"
+            ]
+        ]
+    },
+    {
+        "id": "mqtt_urgence",
+        "type": "mqtt in",
+        "z": "01e644ce72ab7de7",
+        "name": "urgence",
+        "topic": "urgence",
+        "qos": "0",
+        "broker": "mqtt_broker",
+        "inputs": 0,
+        "x": 200,
+        "y": 360,
+        "wires": [
+            [
+                "ui_led_urgence",
+                "fn_csv",
+                "fn_table",
+                "alert_urgence"
+            ]
+        ]
+    },
+    {
+        "id": "ui_led_contaminee",
+        "type": "ui_led",
+        "z": "01e644ce72ab7de7",
+        "order": 1,
+        "group": "ui_group_supervision",
+        "width": 0,
+        "height": 0,
+        "label": "Porte contaminée",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#00ff00",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "OFF",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED Contaminée",
+        "x": 490,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "ui_led_sterile",
+        "type": "ui_led",
+        "z": "01e644ce72ab7de7",
+        "order": 2,
+        "group": "ui_group_supervision",
+        "width": 0,
+        "height": 0,
+        "label": "Porte stérile",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#00ff00",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#ff0000",
+                "value": "OFF",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED Stérile",
+        "x": 480,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ui_led_cycle",
+        "type": "ui_led",
+        "z": "01e644ce72ab7de7",
+        "order": 3,
+        "group": "ui_group_supervision",
+        "width": 0,
+        "height": 0,
+        "label": "Cycle",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#00ff00",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#777777",
+                "value": "OFF",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED Cycle",
+        "x": 480,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ui_led_urgence",
+        "type": "ui_led",
+        "z": "01e644ce72ab7de7",
+        "order": 4,
+        "group": "ui_group_supervision",
+        "width": 0,
+        "height": 0,
+        "label": "Urgence",
+        "labelPlacement": "left",
+        "colorForValue": [
+            {
+                "color": "#ff0000",
+                "value": "ON",
+                "valueType": "str"
+            },
+            {
+                "color": "#00ff00",
+                "value": "OFF",
+                "valueType": "str"
+            }
+        ],
+        "allowColorForValueInMessage": false,
+        "shape": "circle",
+        "showGlow": true,
+        "name": "LED Urgence",
+        "x": 480,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ui_text_etape",
+        "type": "ui_text",
+        "z": "01e644ce72ab7de7",
+        "group": "ui_group_supervision",
+        "order": 5,
+        "width": 0,
+        "height": 0,
+        "name": "Étape cycle",
+        "label": "Étape du cycle :",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 480,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "fn_csv",
+        "type": "function",
+        "z": "01e644ce72ab7de7",
+        "name": "Données → CSV",
+        "func": "\nlet now = new Date().toLocaleTimeString();\nmsg.payload = {heure: now, topic: msg.topic, valeur: msg.payload};\n// send as single-row array to ui_table\nmsg.payload = [msg.payload];\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 630,
+        "y": 400,
+        "wires": [
+            [
+                "file_log"
+            ]
+        ]
+    },
+    {
+        "id": "file_log",
+        "type": "file",
+        "z": "01e644ce72ab7de7",
+        "name": "passbox_log.csv",
+        "filename": "C:\\Users\\hamro\\.node-red\\passbox_log.csv",
+        "filenameType": "str",
+        "appendNewline": true,
+        "createDir": true,
+        "overwriteFile": "false",
+        "encoding": "utf8",
+        "x": 700,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fn_table",
+        "type": "function",
+        "z": "01e644ce72ab7de7",
+        "name": "Données → Tableau",
+        "func": "let now = new Date().toLocaleTimeString();\nmsg.payload = {heure: now, topic: msg.topic, valeur: msg.payload};\n// send as single-row array to ui_table\nmsg.payload = [msg.payload];\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 480,
+        "y": 520,
+        "wires": [
+            [
+                "ui_table_events"
+            ]
+        ]
+    },
+    {
+        "id": "ui_table_events",
+        "type": "ui_table",
+        "z": "01e644ce72ab7de7",
+        "group": "ui_group_historique",
+        "name": "Table évènements",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "columns": [
+            {
+                "field": "heure",
+                "title": "Heure",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "topic",
+                "title": "evenement",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            },
+            {
+                "field": "valeur",
+                "title": "Valeur",
+                "width": "",
+                "align": "left",
+                "formatter": "plaintext",
+                "formatterParams": {
+                    "target": "_blank"
+                }
+            }
+        ],
+        "outputs": 0,
+        "cts": false,
+        "x": 720,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "btn_clear_table",
+        "type": "ui_button",
+        "z": "01e644ce72ab7de7",
+        "name": "Vider tableau",
+        "group": "ui_group_historique",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Vider tableau",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "clear",
+        "payloadType": "str",
+        "topic": "",
+        "x": 480,
+        "y": 600,
+        "wires": [
+            [
+                "fn_clear_table"
+            ]
+        ]
+    },
+    {
+        "id": "fn_clear_table",
+        "type": "function",
+        "z": "01e644ce72ab7de7",
+        "name": "Effacer tableau",
+        "func": "msg.payload = [];\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 700,
+        "y": 600,
+        "wires": [
+            [
+                "ui_table_events"
+            ]
+        ]
+    },
+    {
+        "id": "btn_send_report",
+        "type": "ui_button",
+        "z": "01e644ce72ab7de7",
+        "name": "Envoyer rapport",
+        "group": "ui_group_historique",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Envoyer rapport CSV",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "x": 480,
+        "y": 660,
+        "wires": [
+            [
+                "file_read_for_email"
+            ]
+        ]
+    },
+    {
+        "id": "file_read_for_email",
+        "type": "file in",
+        "z": "01e644ce72ab7de7",
+        "name": "Lire CSV",
+        "filename": "passbox_log.csv",
+        "format": "utf8",
+        "x": 700,
+        "y": 660,
+        "wires": [
+            [
+                "email_out"
+            ]
+        ]
+    },
+    {
+        "id": "email_out",
+        "type": "e-mail",
+        "z": "01e644ce72ab7de7",
+        "server": "smtp.gmail.com",
+        "port": "465",
+        "authtype": "BASIC",
+        "saslformat": false,
+        "token": "oauth2Response.access_token",
+        "secure": true,
+        "tls": false,
+        "name": "report-sender@example.com",
+        "dname": "Envoyer rapport email",
+        "x": 920,
+        "y": 660,
+        "wires": []
+    },
+    {
+        "id": "detect_cycle_end",
+        "type": "switch",
+        "z": "01e644ce72ab7de7",
+        "name": "Fin de cycle?",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "OFF",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 430,
+        "y": 440,
+        "wires": [
+            [
+                "file_read_for_email"
+            ]
+        ]
+    },
+    {
+        "id": "alert_urgence",
+        "type": "debug",
+        "z": "01e644ce72ab7de7",
+        "name": "Alerte urgence (debug)",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "mqtt_broker",
+        "type": "mqtt-broker",
+        "name": "HiveMQ",
+        "broker": "broker.hivemq.com",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "ui_group_supervision",
+        "type": "ui_group",
+        "z": "01e644ce72ab7de7",
+        "name": "Supervision",
+        "tab": "ui_tab_passbox",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "ui_group_historique",
+        "type": "ui_group",
+        "z": "01e644ce72ab7de7",
+        "name": "Historique",
+        "tab": "ui_tab_passbox",
+        "order": 2,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "ui_tab_passbox",
+        "type": "ui_tab",
+        "z": "01e644ce72ab7de7",
+        "name": "PassBox IoT",
+        "icon": "dashboard",
+        "order": 1
+    },
+    {
+        "id": "892425ef9dba6a63",
+        "type": "global-config",
+        "env": [],
+        "modules": {
+            "node-red-contrib-ui-led": "0.4.11",
+            "node-red-dashboard": "3.6.6",
+            "node-red-node-ui-table": "0.4.5",
+            "node-red-node-email": "5.0.0"
+        }
+    }
+]
